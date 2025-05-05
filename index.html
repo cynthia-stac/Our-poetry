@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Poetry</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header>
+    <h1 id="site-title">Our Poetry</h1>
+    <p id="site-description">Welcome to Our Poetry, a place to share and read beautiful poems.</p>
+    
+    <div class="header-buttons">
+      <button id="dark-mode-toggle" onclick="toggleDarkMode()">Dark Mode</button>
+      <button id="language-switcher" onclick="toggleLanguage()">Switch Language</button>
+    </div>
+  </header>
+
+  <div id="poems">
+    <div class="poem">
+      <img src="images/poetry-image1.jpg" alt="Poetry Image 1" class="poem-image">
+      <p id="poem1">"The sun kisses the sky, a fiery goodbye."</p>
+    </div>
+    <div class="poem">
+      <img src="images/poetry-image2.jpg" alt="Poetry Image 2" class="poem-image">
+      <p id="poem2">"In the quiet of the night, dreams learn to fly."</p>
+    </div>
+    <div class="poem">
+      <img src="images/poetry-image3.jpg" alt="Poetry Image 3" class="poem-image">
+      <p id="poem3">"Raindrops tap songs on the window of my soul."</p>
+    </div>
+  </div>
+
+  <div class="poem-video">
+    <h3 id="video-title">Watch This Poem Video</h3>
+    <video width="560" height="315" controls>
+      <source src="videos/poem-video1.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div id="new-poem-form">
+    <h2 id="submit-title">Submit Your Poem</h2>
+    <textarea id="poem-input" placeholder="Write your poem here..."></textarea>
+    <br>
+    <button onclick="addPoem()" id="submit-button">Add Poem</button>
+  </div>
+
+  <footer>
+    <p id="copyright">&copy; 2025 Our Poetry. All Rights Reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
