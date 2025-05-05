@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   background-color: #fff;
   color: #333;
   line-height: 1.6;
@@ -26,11 +26,11 @@ header h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
 }
-
 header p {
   font-size: 1.2rem;
 }
 
+/* header buttons (dark-mode / language) */
 .header-buttons {
   position: absolute;
   top: 20px;
@@ -49,31 +49,39 @@ button {
 }
 
 #dark-mode-toggle {
-  background-color: #fff;
+  background: #fff;
   color: #6a11cb;
   border: none;
 }
-
 #dark-mode-toggle:hover {
-  background-color: #f0f0f0;
+  background: #f0f0f0;
 }
-
 #language-switcher {
-  background-color: #fff;
+  background: #fff;
   border: 1px solid #ccc;
   color: #6a11cb;
 }
-
 #language-switcher:hover {
-  background-color: #f0f0f0;
+  background: #f0f0f0;
 }
 
-#poems {
+.poems-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
   margin-top: 40px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .poem {
@@ -83,7 +91,20 @@ button {
   width: 300px;
   text-align: center;
   border-radius: 10px;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  transform: translateZ(0);
+  animation: fadeInUp 0.6s both;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.poem:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+.poem:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .poem-image {
@@ -98,52 +119,62 @@ button {
   margin: 40px 0;
   text-align: center;
 }
-
 .poem-video h3 {
   color: #333;
   margin-bottom: 15px;
   transition: color 0.3s ease;
 }
-
 video {
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #new-poem-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* equal spacing between fields */
   margin: 40px 0;
   text-align: center;
 }
 
-#poem-input {
-  width: 80%;
+/* inputs & textarea */
+#new-poem-form input,
+#new-poem-form textarea {
+  width: 100%;
   max-width: 600px;
-  height: 150px;
   padding: 15px;
-  margin-bottom: 15px;
-  background-color: #fff;
+  background: #fff;
   color: #333;
   border: 1px solid #ddd;
   border-radius: 10px;
-  font-family: 'Arial', sans-serif;
+  font-family: inherit;
   font-size: 1rem;
   transition: all 0.3s ease;
 }
 
-#submit-button {
+/* specific textarea height */
+#new-poem-form textarea,
+#poem-input {
+  height: 160px;
+}
+
+/* submit button */
+#submit-button,
+#new-poem-form button {
+  align-self: center;
   padding: 12px 25px;
-  background-color: #6a11cb;
+  background: #6a11cb;
   border: none;
-  color: white;
+  color: #fff;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
   font-size: 1rem;
   transition: all 0.3s ease;
 }
-
 #submit-button:hover {
-  background-color: #2575fc;
+  background: #2575fc;
   transform: scale(1.05);
 }
 
@@ -156,39 +187,102 @@ footer {
   transition: all 0.3s ease;
 }
 
-/* DARK MODE STYLES */
-body.dark-mode {
-  background-color: #121212;
-  color: #ddd;
+#poem-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+#poem-modal.open {
+  display: flex;
 }
 
-header.dark-mode, footer.dark-mode {
+.modal-content {
+  background: var(--modal-bg, #fff);
+  color: var(--modal-fg, #333);
+  max-width: 600px;
+  width: 90%;
+  border-radius: 12px;
+  padding: 30px 25px;
+  position: relative;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+#modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+#modal-image {
+  width: 100%;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+pre {
+  white-space: pre-wrap;
+  font-family: inherit;
+}
+
+/* Like button in modal */
+#like-button {
+  margin-top: 15px;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #ff5976;
+  color: #fff;
+  transition: transform 0.2s;
+}
+#like-button:hover {
+  transform: scale(1.08);
+}
+
+body.dark-mode {
+  background: #121212;
+  color: #ddd;
+}
+header.dark-mode,
+footer.dark-mode {
   background: linear-gradient(135deg, #7d46c1 0%, #3351a3 100%);
 }
 
 .dark-mode .poem {
-  background-color: #1e1e1e;
+  background: #1e1e1e;
   border-color: #333;
 }
-
 .dark-mode .poem-video h3 {
   color: #ddd;
 }
 
-.dark-mode #poem-input {
-  background-color: #333;
+.dark-mode #new-poem-form input,
+.dark-mode #new-poem-form textarea {
+  background: #333;
   color: #ddd;
   border-color: #555;
 }
 
-.dark-mode .header-buttons button {
-  color: #121212;
-}
-
 .dark-mode #submit-button {
-  background-color: #7d46c1;
+  background: #7d46c1;
+}
+.dark-mode #submit-button:hover {
+  background: #3351a3;
 }
 
-.dark-mode #submit-button:hover {
-  background-color: #3351a3;
+body.dark-mode #poem-modal {
+  background: rgba(0, 0, 0, 0.7);
 }
+body.dark-mode .modal-content {
+  --modal-bg: #1e1e1e;
+  --modal-fg: #ddd;
+}
+
